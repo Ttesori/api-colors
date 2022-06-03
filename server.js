@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 8000;
 
 const COLORS = [["Almond", "EFDBC5", "239,219,197"],
 ["Antique Brass", "CD9575", "205,149,117"],
@@ -122,17 +123,29 @@ const COLORS = [["Almond", "EFDBC5", "239,219,197"],
 ["Yellow Green", "C5E384", "197,227,132"],
 ["Yellow Orange", "FFB653", "255,182,83"]];
 
+const RGBToHSB = (r, g, b) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const v = Math.max(r, g, b),
+    n = v - Math.min(r, g, b);
+  const h =
+    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+  return [Math.round(60 * (h < 0 ? h + 6 : h)), Math.round(v && (n / v) * 100), Math.round(v * 100)];
+};
+
 app.get('/api/:color', (req, res) => {
   const color = req.params.color.toLowerCase();
   const colorInfo = COLORS.filter(col => col[0].toLowerCase().includes(color));
   const colorsMap = colorInfo.map(col => ({
     color: col[0],
     hex: `#${col[1]}`,
-    rgb: `${col[2]}`
+    rgb: `${col[2]}`,
+    hsb: `${RGBToHSB(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])}`
   }));
   res.json(colorsMap);
 });
 
-app.listen(8000, () => {
-  console.log(`Your server is running, you'd better go catch it!`);
+app.listen(PORT, () => {
+  console.log(`Your server is running on port ${PORT}, you'd better go catch it!`);
 });
