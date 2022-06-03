@@ -134,6 +134,10 @@ const RGBToHSB = (r, g, b) => {
   return [Math.round(60 * (h < 0 ? h + 6 : h)), Math.round(v && (n / v) * 100), Math.round(v * 100)];
 };
 
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
 app.get('/api/:color', (req, res) => {
   const color = req.params.color.toLowerCase();
   const colorInfo = COLORS.filter(col => col[0].toLowerCase().includes(color));

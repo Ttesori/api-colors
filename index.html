@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crayola Colors API</title>
+</head>
+
+<body>
+  <h1>Crayola Colors API</h1>
+  <p>Get the HEX, RGB, and HSB values of your favorite crayons! Just send a request to:
+    <code>https://ttesori-colors-api.herokuapp.com/api/{query}</code> and replace <code>{query}</code> with...your query
+    and the API will return a list of matches.
+  </p>
+  <h2>Example Request</h2>
+  <p><code>GET https://ttesori-colors-api.herokuapp.com/api/yellow</code></p>
+  <h3>Result</h3>
+  <p>
+    <code style="white-space:pre">[{
+        "color": "Green Yellow",
+        "hex": "#F0E891",
+        "rgb": "240,232,145",
+        "hsb": "55,40,94"
+    },
+    {
+        "color": "Unmellow Yellow",
+        "hex": "#FDFC74",
+        "rgb": "253,252,116",
+        "hsb": "60,54,99"
+    },
+    {
+        "color": "Yellow",
+        "hex": "#FCE883",
+        "rgb": "252,232,131",
+        "hsb": "50,48,99"
+    },
+    {
+        "color": "Yellow Green",
+        "hex": "#C5E384",
+        "rgb": "197,227,132",
+        "hsb": "79,42,89"
+    },
+    {
+        "color": "Yellow Orange",
+        "hex": "#FFB653",
+        "rgb": "255,182,83",
+        "hsb": "35,67,100"
+    }]
+    </code>
+  </p>
+</body>
+
+</html>
