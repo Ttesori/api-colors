@@ -123,15 +123,24 @@ const COLORS = [["Almond", "EFDBC5", "239,219,197"],
 ["Yellow Green", "C5E384", "197,227,132"],
 ["Yellow Orange", "FFB653", "255,182,83"]];
 
-const RGBToHSB = (r, g, b) => {
+const RGBToHSL = (r, g, b) => {
   r /= 255;
   g /= 255;
   b /= 255;
-  const v = Math.max(r, g, b),
-    n = v - Math.min(r, g, b);
-  const h =
-    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
-  return [Math.round(60 * (h < 0 ? h + 6 : h)), Math.round(v && (n / v) * 100), Math.round(v * 100)];
+  const l = Math.max(r, g, b);
+  const s = l - Math.min(r, g, b);
+  const h = s
+    ? l === r
+      ? (g - b) / s
+      : l === g
+        ? 2 + (b - r) / s
+        : 4 + (r - g) / s
+    : 0;
+  return [
+    Math.round(60 * h < 0 ? 60 * h + 360 : 60 * h),
+    Math.round(100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0)),
+    Math.round((100 * (2 * l - s)) / 2),
+  ];
 };
 
 app.get('/', (req, res) => {
@@ -142,8 +151,8 @@ app.get('/api', (req, res) => {
   const colorsMap = COLORS.map(col => ({
     color: col[0],
     hex: `#${col[1]}`,
-    rgb: `${col[2]}`,
-    hsb: `${RGBToHSB(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])}`
+    rgb: [Number(col[2].split(',')[0]), Number(col[2].split(',')[1]), Number(col[2].split(',')[2])],
+    hsl: RGBToHSL(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])
   }));
   res.json(colorsMap);
 });
