@@ -10,13 +10,14 @@
 
 <body>
   <h1>Crayola Colors API</h1>
-  <p>Get the HEX, RGB, and HSB values of your favorite crayons! Just send a request to:
-    <code>https://ttesori-colors-api.herokuapp.com/api/{query}</code> and replace <code>{query}</code> with...your query
-    and the API will return a list of matches.
-  </p>
-  <h2>Example Request</h2>
+  <p>Get the HEX, RGB, and HSB values of your favorite crayons!</p>
+  <h2>Request All Colors</h2>
+  <p><code>GET https://ttesori-colors-api.herokuapp.com/api</code></p>
+  <h2>Request Colors with Keyword</h2>
+  <p><code>GET https://ttesori-colors-api.herokuapp.com/api/:query</code></p>
+  <h3>Example</h3>
   <p><code>GET https://ttesori-colors-api.herokuapp.com/api/yellow</code></p>
-  <h3>Result</h3>
+  <h4>Result</h4>
   <p>
     <code style="white-space:pre">[{
         "color": "Green Yellow",
