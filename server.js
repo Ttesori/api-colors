@@ -143,29 +143,26 @@ const RGBToHSL = (r, g, b) => {
   ];
 };
 
+const createColorMap = col => ({
+  color: col[0],
+  hex: `#${col[1]}`,
+  rgb: [Number(col[2].split(',')[0]), Number(col[2].split(',')[1]), Number(col[2].split(',')[2])],
+  hsl: RGBToHSL(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])
+});
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/api', (req, res) => {
-  const colorsMap = COLORS.map(col => ({
-    color: col[0],
-    hex: `#${col[1]}`,
-    rgb: [Number(col[2].split(',')[0]), Number(col[2].split(',')[1]), Number(col[2].split(',')[2])],
-    hsl: RGBToHSL(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])
-  }));
+  const colorsMap = COLORS.map(col => createColorMap(col));
   res.json(colorsMap);
 });
 
 app.get('/api/:color', (req, res) => {
   const color = req.params.color.toLowerCase();
   const colorInfo = COLORS.filter(col => col[0].toLowerCase().includes(color));
-  const colorsMap = colorInfo.map(col => ({
-    color: col[0],
-    hex: `#${col[1]}`,
-    rgb: [Number(col[2].split(',')[0]), Number(col[2].split(',')[1]), Number(col[2].split(',')[2])],
-    hsl: RGBToHSL(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])
-  }));
+  const colorsMap = colorInfo.map(col => createColorMap(col));
   res.json(colorsMap);
 });
 
