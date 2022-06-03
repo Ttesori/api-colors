@@ -163,8 +163,8 @@ app.get('/api/:color', (req, res) => {
   const colorsMap = colorInfo.map(col => ({
     color: col[0],
     hex: `#${col[1]}`,
-    rgb: `${col[2]}`,
-    hsb: `${RGBToHSB(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])}`
+    rgb: [Number(col[2].split(',')[0]), Number(col[2].split(',')[1]), Number(col[2].split(',')[2])],
+    hsl: RGBToHSL(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])
   }));
   res.json(colorsMap);
 });
