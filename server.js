@@ -138,6 +138,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/api', (req, res) => {
+  const colorsMap = COLORS.map(col => ({
+    color: col[0],
+    hex: `#${col[1]}`,
+    rgb: `${col[2]}`,
+    hsb: `${RGBToHSB(col[2].split(',')[0], col[2].split(',')[1], col[2].split(',')[2])}`
+  }));
+  res.json(colorsMap);
+});
+
 app.get('/api/:color', (req, res) => {
   const color = req.params.color.toLowerCase();
   const colorInfo = COLORS.filter(col => col[0].toLowerCase().includes(color));
